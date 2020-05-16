@@ -2,9 +2,15 @@ import React, {Component} from 'react';
 import Board from './Board';
 
 
+/**
+ * @description Create a tic-tac-toe game
+ * @constructor
+ */
 class Game extends Component {
   constructor(props) {
     super(props);
+
+    // Create component state
     this.state = {
       history: [{
         squares: Array(9).fill(null),
@@ -14,10 +20,13 @@ class Game extends Component {
     };
   }
 
+  // Take care of players game move
   handleClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
+
+    // Ignore square click if game won or square already used
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -31,6 +40,7 @@ class Game extends Component {
     });
   }
 
+  // Implements the time travel, Undo ability
   jumpTo(step) {
     this.setState({
       stepNumber: step,
@@ -39,10 +49,12 @@ class Game extends Component {
   }
 
   render() {
+    // Using history to render game
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
+    // Create Undo buttons
     const moves = history.map((step, move) => {
       const desc = move ?
         'Go to move #' + move :
@@ -78,6 +90,12 @@ class Game extends Component {
   }
 }
 
+/**
+ * @description Use a list of winning moves to check the board for a winner
+ * @param {array} squares - and array with current game board states
+ * @return {string} either 'X' or 'O' depending on winner
+ * @return {null} when no winner found
+ */
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
