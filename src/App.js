@@ -1,24 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Game from './Game';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h2>Tic Tac Toe</h2>
+        <h3>React edition</h3>
       </header>
+      <main className="App-body">
+        <Game />
+      </main>
+      <footer className="App-footer">
+        <p>Created for practice with guidance 
+          from <a href="https://reactjs.org/tutorial/tutorial.html">Reactjs tutorial</a> by <a href="https://carlosealford.com">Carlos E Alford</a>
+        </p>
+      </footer>
     </div>
   );
 }
