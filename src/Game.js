@@ -71,7 +71,7 @@ class Game extends Component {
         'Go to move #' + move :
         'Go to game start';
       // #2: Bold the currently selected item in the move list
-      const btnClass = current === step ? "move-selector move-selector-current" : "move-selector";
+      const btnClass = this.state.stepNumber === move ? "move-selector move-selector-current" : "move-selector";
       return (
         <li key={move}>
           <button className={btnClass} onClick={() => this.jumpTo(move)}>{desc}</button>
