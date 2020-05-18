@@ -14,30 +14,29 @@ class Board extends Component {
   renderSquare(i) {
     return (
       <Square
+        key={i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
     );
   }
 
+  // #3 Use two loops to make the squares instead of hardcoding them.
+  // Dont think this is the best way of doing it, may need to come back..
   render() {
+    let grid = [];
+    let i = 0;
+    for (let row=0; row<3; row++) {
+      let cols = [];
+      for (let col=0; col<3; col++) {
+        cols[col] = this.renderSquare(i);
+        i++;
+      }
+      grid[row] = <div key={row} className="board-row">{cols}</div>
+    }
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {grid}
       </div>
     );
   }
