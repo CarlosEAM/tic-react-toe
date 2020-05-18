@@ -16,3 +16,8 @@
 .App-link {
   color: #61dafb;
 }
+
+/*MOVES LIST*/
+.move-selector-current {
+  font-weight: bold;
+}
