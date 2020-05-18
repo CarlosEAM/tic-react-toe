@@ -7,7 +7,7 @@ import Board from './Board';
  * 1. Display the location for each move in the format (col, row) in the move history list.
  * #2. Bold the currently selected item in the move list.
  * #3. Rewrite Board to use two loops to make the squares instead of hardcoding them.
- * 4. Add a toggle button that lets you sort the moves in either ascending or descending order.
+ * #4. Add a toggle button that lets you sort the moves in either ascending or descending order.
  * 5. When someone wins, highlight the three squares that caused the win.
  * 6. When no one wins, display a message about the result being a draw.
  */
@@ -28,6 +28,7 @@ class Game extends Component {
       }],
       stepNumber: 0,
       xIsNext: true,
+      movesInAscOrder: true,
     };
   }
 
@@ -59,6 +60,13 @@ class Game extends Component {
     });
   }
 
+  // Implements the toggle button with state
+  toggleMovesList = () => {
+    this.setState(prevState => ({
+      movesInAscOrder: prevState.movesInAscOrder ? false : true
+    }));
+  }
+
   render() {
     // Using history to render game
     const history = this.state.history;
@@ -79,6 +87,12 @@ class Game extends Component {
       );
     });
 
+    // #4: Add a toggle button that lets you sort the moves in either ascending or descending order
+    let toggleMovesList = (
+      <button className="toggleButton" onClick={() => this.toggleMovesList()}>
+        Show in {this.state.movesInAscOrder ? "descending" : "ascending"} order
+      </button>)
+
     let status;
     if (winner) {
       status = 'Winner: ' + winner;
@@ -96,7 +110,8 @@ class Game extends Component {
         </div>
         <div className="game-info">
           <div>{ status }</div>
-          <ol>{ moves }</ol>
+          <div>{ toggleMovesList }</div>
+          <ol>{ (this.state.movesInAscOrder ? moves : moves.reverse()) }</ol>
         </div>
       </div>
     );
