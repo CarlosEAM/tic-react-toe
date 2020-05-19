@@ -8,7 +8,7 @@ import Board from './Board';
  * #2. Bold the currently selected item in the move list.
  * #3. Rewrite Board to use two loops to make the squares instead of hardcoding them.
  * #4. Add a toggle button that lets you sort the moves in either ascending or descending order.
- * 5. When someone wins, highlight the three squares that caused the win.
+ * #5. When someone wins, highlight the three squares that caused the win.
  * 6. When no one wins, display a message about the result being a draw.
  */
 
@@ -95,7 +95,7 @@ class Game extends Component {
 
     let status;
     if (winner) {
-      status = 'Winner: ' + winner;
+      status = 'Winner: ' + winner.winner;
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
@@ -106,6 +106,7 @@ class Game extends Component {
           <Board
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
+            winMoves={winner}
           />
         </div>
         <div className="game-info">
@@ -121,7 +122,7 @@ class Game extends Component {
 /**
  * @description Use a list of winning moves to check the board for a winner
  * @param {array} squares - and array with current game board states
- * @return {string} either 'X' or 'O' depending on winner
+ * @return {object} winner: 'X || O', winMove: lines[] of winning moves
  * @return {null} when no winner found
  */
 function calculateWinner(squares) {
@@ -138,7 +139,8 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      // #5: Using object as stated in function comments to know which squares won
+      return {winner: squares[a], winMove: lines[i]};
     }
   }
   return null;

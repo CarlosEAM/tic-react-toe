@@ -21,3 +21,8 @@
 .move-selector-current {
   font-weight: bold;
 }
+
+/*WINNIN SQUARES*/
+.highlight-square {
+  background-color: #b3ad90;
+}
